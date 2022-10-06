@@ -22,5 +22,39 @@ hardware_interface:
 joint_state_controller:
   type: joint_state_controller/JointStateController
   publish_rate: 50
+joint_trajectory_controller:
+  type: velocity_controllers/JointTrajectoryController
+  joints:
+    - joint2_to_joint1
+    - joint3_to_joint2
+    - joint4_to_joint3
+    - joint5_to_joint4
+    - joint6_to_joint5
+    - joint6output_to_joint6
+  constraints:
+    goal_time: 0.5                   # Override default
+    stopped_velocity_tolerance: 0.02 # Override default
+    joint2_to_joint1:
+      goal: 0.02                     # Not enforced if unspecified
+    joint3_to_joint2:
+      goal: 0.02                     # Not enforced if unspecified
+    joint4_to_joint3:
+      goal: 0.02                     # Not enforced if unspecified
+    joint5_to_joint4:
+      goal: 0.02                     # Not enforced if unspecified
+    joint6_to_joint5:
+      goal: 0.02                     # Not enforced if unspecified
+    joint6output_to_joint6:
+      goal: 0.02                     # Not enforced if unspecified
+  gains: # Required because we're controlling an effort interface
+    joint2_to_joint1: {p: 25.0, i: 0.0, d: 0.0}
+    joint3_to_joint2: {p: 25.0, i: 0.0, d: 0.0}
+    joint4_to_joint3: {p: 25.0, i: 0.0, d: 0.0}
+    joint5_to_joint4: {p: 25.0, i: 0.0, d: 0.0}
+    joint6_to_joint5: {p: 25.0, i: 0.0, d: 0.0}
+    joint6output_to_joint6: {p: 25.0, i: 0.0, d: 0.0}
+  state_publish_rate:  100            # Override default
+  action_monitor_rate: 100            # Override default
+  stop_trajectory_duration: 0        # Override default
 controller_list:
   []
